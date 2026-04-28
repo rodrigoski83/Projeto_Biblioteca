@@ -22,7 +22,7 @@ function App() {
   // --- 2. FUNÇÕES DE COMUNICAÇÃO (API) ---
 
   const buscarLivros = () => {
-    fetch('http://localhost:3001/livros')
+    fetch('https://projeto-biblioteca-u68j.onrender.com/livros')
       .then(res => res.json())
       .then(data => setLivros(data));
   };
@@ -31,7 +31,7 @@ function App() {
 
   const cadastrarLivro = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3001/livros', {
+    fetch('https://projeto-biblioteca-u68j.onrender.com/livros', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ titulo, autor, categoria: novaCategoria })
@@ -43,7 +43,7 @@ function App() {
 
   const realizarEmprestimo = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3001/livros/emprestar/${emprestandoId}`, {
+    fetch(`https://projeto-biblioteca-u68j.onrender.com/livros/emprestar/${emprestandoId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ usuario_nome: nomeAluno, serie, data_emprestimo: dataEmprestimo, data_devolucao: dataDevolucao })
@@ -55,14 +55,14 @@ function App() {
 
   const realizarDevolucao = (id) => {
     if (window.confirm("Confirmar a devolução deste livro?")) {
-      fetch(`http://localhost:3001/livros/devolver/${id}`, { method: 'PUT' })
+      fetch(`https://projeto-biblioteca-u68j.onrender.com/livros/devolver/${id}`, { method: 'PUT' })
         .then(() => buscarLivros());
     }
   };
 
   const deletarLivro = (id) => {
     if (window.confirm("ATENÇÃO: Deseja excluir este livro permanentemente do acervo?")) {
-      fetch(`http://localhost:3001/livros/${id}`, { method: 'DELETE' })
+      fetch(`https://projeto-biblioteca-u68j.onrender.com/livros/${id}`, { method: 'DELETE' })
         .then(() => buscarLivros());
     }
   };
