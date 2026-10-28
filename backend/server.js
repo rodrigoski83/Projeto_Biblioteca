@@ -92,17 +92,11 @@ app.delete('/livros/:id', async (req, res) => {
 // Rota para buscar todos os produtos cadastrados
 app.get('/produtos', async (req, res) => {
   try {
-    const result = await pool.query(`
-      SELECT p.*, c.nome AS categoria_nome 
-      FROM produtos p 
-      LEFT JOIN categorias c ON p.categoria_id = c.id
-      WHERE p.ativo = TRUE 
-      ORDER BY p.id DESC
-    `);
+    const result = await pool.query('SELECT * FROM produtos');
     res.json(result.rows);
   } catch (err) {
     console.error('Erro ao buscar produtos:', err);
-    res.status(500).json({ error: 'Erro interno no servidor' });
+    res.status(500).json({ error: err.message }); // Retorna a mensagem exata do erro para podermos identificar
   }
 });
 
